@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "MobileProjectPlayerController.h"
+#include "MenuHUD.h"
 #include "GameFramework/Pawn.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "NiagaraSystem.h"
@@ -53,6 +54,8 @@ void AMobileProjectPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &AMobileProjectPlayerController::OnTouchTriggered);
 		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &AMobileProjectPlayerController::OnTouchReleased);
 		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &AMobileProjectPlayerController::OnTouchReleased);
+	
+		EnhancedInputComponent->BindAction(Menukey, ETriggerEvent::Started, this, &AMobileProjectPlayerController::OpenMenu);
 	}
 	else
 	{
@@ -122,4 +125,14 @@ void AMobileProjectPlayerController::OnTouchReleased()
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();
+}
+
+void AMobileProjectPlayerController::OpenMenu()
+{
+	GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("TEST1"), true);
+	 if (AMenuHUD* MenuHUD = Cast<AMenuHUD>(GetHUD()))
+	{
+		GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("TEST2"), true);
+		MenuHUD->ShowMenu();
+	}
 }

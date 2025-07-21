@@ -4,6 +4,7 @@
 #include "MobileProjectPlayerController.h"
 #include "MobileProjectCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "MenuHUD.h"
 
 AMobileProjectGameMode::AMobileProjectGameMode()
 {
@@ -23,4 +24,6 @@ AMobileProjectGameMode::AMobileProjectGameMode()
 	{
 		PlayerControllerClass = PlayerControllerBPClass.Class;
 	}
+
+	HUDClass = AMenuHUD::StaticClass();
 }

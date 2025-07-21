@@ -9,5 +9,7 @@ public class MobileProject : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput" });
+
+        PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
     }
 }
