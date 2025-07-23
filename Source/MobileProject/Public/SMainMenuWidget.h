@@ -22,4 +22,8 @@ public:
 	TWeakObjectPtr<class AMenuHUD> OwningHUD;
 
 	virtual bool SupportsKeyboardFocus() const override { return true; };
+
+	FSlateBrush InvenButtonBrush;
+	FSlateBrush SettingsButtonBrush;
+	FSlateBrush SkillButtonBrush;
 };
