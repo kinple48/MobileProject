@@ -16,6 +16,7 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 
 	const FMargin ContentPadding = FMargin(10.f, 10.f,10.f,10.f);
 	const FMargin ButtonPadding = FMargin(20.f);
+	const FMargin StatusPadding = FMargin(0.f, 5.f, 0.f, 5.f);
 
 	const FText TitleText = LOCTEXT("GameTitle", "Hong Hye Seong");
 	const FText PlayText = LOCTEXT("PlayGame", "A");
@@ -31,13 +32,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 	ChildSlot
 		[
 			SNew(SOverlay)
-			/*+ SOverlay::Slot()
-			.HAlign(HAlign_Fill)
-			.VAlign(VAlign_Fill)
-			[
-				SNew(SImage)
-				.ColorAndOpacity(FColor::Black)
-			]*/
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Right)
 			.VAlign(VAlign_Top)
@@ -110,59 +104,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				]
 			]
 			
-
-			//	SNew(SVerticalBox)
-
-			//	//Title
-			//	+ SVerticalBox::Slot()
-			//	[
-			//		SNew(STextBlock)
-			//		.Font(TitleTextStyle)
-			//		.Text(TitleText)
-			//		.Justification(ETextJustify::Center)
-			//	]
-
-			//	//Play Button
-			//	+ SVerticalBox::Slot()
-			//	.Padding(ButtonPadding)
-			//	[
-			//		SNew(SButton)
-			//		.OnClicked(this, &SMainMenuWidget::OnPlayClicked)
-			//		[
-			//			SNew(STextBlock)
-			//			.Font(ButtonTextStyle)
-			//			.Text(PlayText)
-			//			.Justification(ETextJustify::Center)	
-			//		]
-			//	]
-
-			//	// Setting Button
-			//	+ SVerticalBox::Slot()
-			//	.Padding(ButtonPadding)
-			//	[
-			//		SNew(SButton)
-			//		[
-			//			SNew(STextBlock)
-			//			.Font(ButtonTextStyle)
-			//			.Text(SettingsText)
-			//			.Justification(ETextJustify::Center)	
-			//		]
-			//	]
-
-			//	// Quit Button
-			//	+ SVerticalBox::Slot()
-			//	.Padding(ButtonPadding)
-			//	[
-			//		SNew(SButton)
-			//		.OnClicked(this, &SMainMenuWidget::OnQuitClicked)
-			//		[
-			//			SNew(STextBlock)
-			//			.Font(ButtonTextStyle)
-			//			.Text(QuitText)
-			//			.Justification(ETextJustify::Center)	
-			//		]
-			//	]
-			//]
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Right)
 			.VAlign(VAlign_Bottom)
@@ -234,6 +175,53 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 					]
 				]
 			]
+			+ SOverlay::Slot()
+			.HAlign(HAlign_Center)
+			.VAlign(VAlign_Bottom)
+			.Padding(ContentPadding)
+			[
+				SNew(SVerticalBox)
+				+ SVerticalBox::Slot()
+				.Padding(StatusPadding)
+				[
+					SNew(SBox)
+					.WidthOverride(1000.f)
+					.HeightOverride(30.f)
+					[
+						SNew(SButton)
+						.HAlign(HAlign_Center)
+						.VAlign(VAlign_Center) 
+						.ButtonColorAndOpacity(FColor::Red)
+						[
+							SNew(STextBlock)
+							.Font(ButtonTextStyle)
+							.Text(PlayText)
+							.Justification(ETextJustify::Center)
+						]
+					]
+				]
+
+				+ SVerticalBox::Slot()
+				.Padding(StatusPadding)
+				[
+					SNew(SBox)
+					.WidthOverride(1000.f)
+					.HeightOverride(30.f)
+					[
+						SNew(SButton)
+						.HAlign(HAlign_Center)
+						.VAlign(VAlign_Center)
+						.ButtonColorAndOpacity(FColor::Blue)
+						[
+							SNew(STextBlock)
+							.Font(ButtonTextStyle)
+							.Text(SettingsText)
+							.Justification(ETextJustify::Center)
+						]
+					]
+				]
+			]
+
 		];
 }
 
