@@ -45,7 +45,14 @@ AMobileProjectCharacter::AMobileProjectCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 }
 
+void AMobileProjectCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentMP = MaxMP;
+}
+
 void AMobileProjectCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    CurrentMP = FMath::Clamp(CurrentMP - 0.01f * DeltaSeconds, 0.f, MaxMP);
 }

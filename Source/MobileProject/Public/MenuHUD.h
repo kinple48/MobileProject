@@ -17,12 +17,14 @@ class MOBILEPROJECT_API AMenuHUD : public AHUD
 protected:
 	TSharedPtr<class SMainMenuWidget> MenuWidget;
 	TSharedPtr<class SWidget> MenuWidgetContainer;
-
+	TSharedPtr<class SInventoryWidget> InventoryWidget;
+	TSharedPtr<class SSkillWidget> SkillWidget;
+	TSharedPtr<class SOptionWidget> OptionWidget;
 	virtual void BeginPlay() override;
 
 public:
 
 	void ShowMenu();
 	void RemoveMenu();
-
+	void ShowInventory();
 };

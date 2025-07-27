@@ -7,6 +7,8 @@
 #include "Engine/Engine.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/HUD.h"
+#include "../MobileProjectCharacter.h"
+#include "SInventoryWidget.h"
 
 void AMenuHUD::BeginPlay()
 {
@@ -16,16 +18,22 @@ void AMenuHUD::BeginPlay()
 
 void AMenuHUD::ShowMenu()
 {
-	GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("Hello from Unreal!"), true);
 	if (GEngine && GEngine->GameViewport)
 	{
-		MenuWidget = SNew(SMainMenuWidget).OwningHUD(this);
+		AMobileProjectCharacter* MyCharacter = nullptr;
+        if (PlayerOwner)
+        {
+            MyCharacter = Cast<AMobileProjectCharacter>(PlayerOwner->GetPawn());
+        }
+
+		MenuWidget = SNew(SMainMenuWidget).OwningHUD(this).OwnerCharacter(MyCharacter);
+
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(MenuWidgetContainer,SWeakWidget).PossiblyNullContent(MenuWidget.ToSharedRef()));
 
 		if (PlayerOwner)
 		{
 			PlayerOwner->bShowMouseCursor = true;
-			//PlayerOwner->SetInputMode(FInputModeUIOnly());
+			PlayerOwner->SetInputMode(FInputModeGameAndUI());
 		}
 	}
 }
@@ -42,4 +50,13 @@ void AMenuHUD::RemoveMenu()
 			PlayerOwner->SetInputMode(FInputModeGameOnly());
 		}
 	}
+}
+
+void AMenuHUD::ShowInventory()
+{
+    if (!InventoryWidget.IsValid())
+    {
+        InventoryWidget = SNew(SInventoryWidget);
+        GEngine->GameViewport->AddViewportWidgetContent(InventoryWidget.ToSharedRef());
+    }
 }

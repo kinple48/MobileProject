@@ -5,12 +5,16 @@
 /**
  * 
  */
+
+
 class SMainMenuWidget : public SCompoundWidget
 {
 public:
+
 	SLATE_BEGIN_ARGS(SMainMenuWidget) {}
 
 	SLATE_ARGUMENT(TWeakObjectPtr<class AMenuHUD>, OwningHUD)
+	SLATE_ARGUMENT(TWeakObjectPtr<class AMobileProjectCharacter>, OwnerCharacter)
 
 	SLATE_END_ARGS()
 
@@ -19,7 +23,12 @@ public:
 	FReply OnPlayClicked() const;
 	FReply OnQuitClicked() const;
 
+	FReply OnInvenClicked() const;
+	FReply OnSkillClicked() const;
+	FReply OnOptionClicked() const;
+
 	TWeakObjectPtr<class AMenuHUD> OwningHUD;
+	TWeakObjectPtr<class AMobileProjectCharacter> OwnerCharacter;
 
 	virtual bool SupportsKeyboardFocus() const override { return true; };
 
