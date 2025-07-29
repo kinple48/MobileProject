@@ -9,6 +9,8 @@
 #include "GameFramework/HUD.h"
 #include "../MobileProjectCharacter.h"
 #include "SInventoryWidget.h"
+#include "SSkillWidget.h"
+#include "SOptionWidget.h"
 
 void AMenuHUD::BeginPlay()
 {
@@ -27,13 +29,11 @@ void AMenuHUD::ShowMenu()
         }
 
 		MenuWidget = SNew(SMainMenuWidget).OwningHUD(this).OwnerCharacter(MyCharacter);
-
 		GEngine->GameViewport->AddViewportWidgetContent(SAssignNew(MenuWidgetContainer,SWeakWidget).PossiblyNullContent(MenuWidget.ToSharedRef()));
 
 		if (PlayerOwner)
 		{
 			PlayerOwner->bShowMouseCursor = true;
-			PlayerOwner->SetInputMode(FInputModeGameAndUI());
 		}
 	}
 }
@@ -58,5 +58,23 @@ void AMenuHUD::ShowInventory()
     {
         InventoryWidget = SNew(SInventoryWidget);
         GEngine->GameViewport->AddViewportWidgetContent(InventoryWidget.ToSharedRef());
+    }
+}
+
+void AMenuHUD::ShowSkill()
+{
+	if (!SkillWidget.IsValid())
+    {
+        SkillWidget = SNew(SSkillWidget);
+        GEngine->GameViewport->AddViewportWidgetContent(SkillWidget.ToSharedRef());
+    }
+}
+
+void AMenuHUD::ShowOption()
+{
+	if (!OptionWidget.IsValid())
+    {
+        OptionWidget = SNew(SOptionWidget);
+        GEngine->GameViewport->AddViewportWidgetContent(OptionWidget.ToSharedRef());
     }
 }

@@ -129,10 +129,8 @@ void AMobileProjectPlayerController::OnTouchReleased()
 
 void AMobileProjectPlayerController::OpenMenu()
 {
-	GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("TEST1"), true);
 	 if (AMenuHUD* MenuHUD = Cast<AMenuHUD>(GetHUD()))
 	{
-		GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Green,TEXT("TEST2"), true);
 		MenuHUD->ShowMenu();
 	}
 }

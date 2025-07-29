@@ -51,7 +51,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 	ChildSlot
 		[
 			SNew(SOverlay)
-			.Visibility(EVisibility::HitTestInvisible)
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Right)
 			.VAlign(VAlign_Top)
@@ -266,7 +265,7 @@ FReply SMainMenuWidget::OnQuitClicked() const
 
 FReply SMainMenuWidget::OnInvenClicked() const
 {
-	GEngine->AddOnScreenDebugMessage(-1,5.0f,FColor::Red, TEXT("Hello, Debug World!"));
+	
 	if (OwningHUD.IsValid())
     {
         OwningHUD->ShowInventory();
@@ -276,11 +275,19 @@ FReply SMainMenuWidget::OnInvenClicked() const
 
 FReply SMainMenuWidget::OnSkillClicked() const
 {
+	if (OwningHUD.IsValid())
+    {
+        OwningHUD->ShowSkill();
+    }
 	return FReply::Handled();
 }
 
 FReply SMainMenuWidget::OnOptionClicked() const
 {
+	if (OwningHUD.IsValid())
+    {
+        OwningHUD->ShowOption();
+    }
 	return FReply::Handled();
 }
 

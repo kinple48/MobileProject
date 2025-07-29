@@ -27,4 +27,6 @@ public:
 	void ShowMenu();
 	void RemoveMenu();
 	void ShowInventory();
+	void ShowSkill();
+	void ShowOption();
 };
