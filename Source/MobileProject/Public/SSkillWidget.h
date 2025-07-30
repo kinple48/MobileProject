@@ -27,4 +27,29 @@ public:
 	virtual bool SupportsKeyboardFocus() const override { return true; };
 
 	TWeakObjectPtr<class AMenuHUD> OwningHUD;
+
+	FSlateBrush XButtonBrush;
+	FSlateBrush PlusButtonBrush;
+	FSlateBrush MinusButtonBrush;
+
+	TSharedRef<SWidget> CreateSkillEntry(const FString& SkillName);
+	FSlateBrush SkillButtonBrush;
+	FButtonStyle CustomStyle = FCoreStyle::Get().GetWidgetStyle<FButtonStyle>("Button");
+
+	TArray<int32> LevelUpPointTable;
+	TMap<FString, int32> SkillLevels;
+	FString SelectedSkillName;
+	TMap<FString, FString> SkillImagePathMap;
+	TMap<FString, FSlateBrush> SkillBrushMap;
+
+	FText GetSkillLevelText(const FString& SkillName) const;
+    FReply OnIncreaseClicked(const FString& SkillName);
+    FReply OnDecreaseClicked(const FString& SkillName);
+	FReply OnXButtonClicked() const;
+	FReply OnResetSkillClicked();
+	FReply OnSaveSkillClicked();
+	FReply OnSkillClicked(FString SkillName);
+
+	int32 MaxSkillPoints = 367;
+	int32 TotalSkillPoints = MaxSkillPoints;
 };

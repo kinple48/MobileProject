@@ -27,11 +27,8 @@ public:
 	virtual bool SupportsKeyboardFocus() const override { return true; };
 
 	TWeakObjectPtr<class AMenuHUD> OwningHUD;
-	//TSharedRef<SWidget> CreateInventoryItem(FText ItemName);
 	TSharedRef<SWidget> GenerateRow(int32 RowIndex, int32 Columns, float SlotSize, float Padding);
 
-	//virtual FReply OnMouseButtonDown(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
-	//virtual FReply OnDragDetected(const FGeometry& MyGeometry, const FPointerEvent& MouseEvent) override;
-
-	FText Name;
+	FSlateBrush XButtonBrush;
+	FReply OnXButtonClicked() const;
 };

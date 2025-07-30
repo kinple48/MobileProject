@@ -19,14 +19,18 @@ protected:
 	TSharedPtr<class SWidget> MenuWidgetContainer;
 	TSharedPtr<class SInventoryWidget> InventoryWidget;
 	TSharedPtr<class SSkillWidget> SkillWidget;
-	TSharedPtr<class SOptionWidget> OptionWidget;
 	virtual void BeginPlay() override;
 
 public:
+
+	TMap<FString, int32> SavedSkillLevels;
+	int32 SavedTotalSkillPoints = 0;
 
 	void ShowMenu();
 	void RemoveMenu();
 	void ShowInventory();
 	void ShowSkill();
-	void ShowOption();
+	void CloseSkillWidget();
+	void CloseInvenWidget();
+	void SetSavedSkillData(const TMap<FString, int32>& Levels, int32 Points);
 };

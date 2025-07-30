@@ -1,12 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "SMainMenuWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/HUD.h"
 #include "MenuHUD.h"
 #include "../MobileProjectCharacter.h"
-#define LOCTEXT_NAMESPACE "MainMene"
 
 void SMainMenuWidget::Construct(const FArguments& InArgs)
 {
@@ -16,12 +12,12 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 	OwnerCharacter = InArgs._OwnerCharacter;
 
 	const FMargin ContentPadding = FMargin(10.f);
-	const FMargin ButtonPadding = FMargin(5.f);
+	const FMargin ButtonPadding = FMargin(1.f);
 	const FMargin StatusPadding = FMargin(0.f, 5.f, 0.f, 5.f);
 
-	const FText PlayText = LOCTEXT("A skill", "A");
-	const FText SettingsText = LOCTEXT("B skill", "B");
-	const FText QuitText = LOCTEXT("C skill", "C");
+	const FString PlayText = TEXT("A");
+	const FString SettingsText = TEXT("B");
+	const FString QuitText = TEXT("C");
 
 	FSlateFontInfo ButtonTextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
 	ButtonTextStyle.Size = 40.f;
@@ -36,16 +32,34 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 		InvenButtonBrush.ImageSize = FVector2D(100, 100);
 	}
 
-	if (UTexture2D* SettingsTex = LoadObject<UTexture2D>(nullptr, TEXT("/Game/TopDown/Image/options.options")))
-	{
-		SettingsButtonBrush.SetResourceObject(SettingsTex);
-		SettingsButtonBrush.ImageSize = FVector2D(100, 100);
-	}
-
 	if (UTexture2D* SkillTex = LoadObject<UTexture2D>(nullptr, TEXT("/Game/TopDown/Image/skills.skills")))
 	{
 		SkillButtonBrush.SetResourceObject(SkillTex);
 		SkillButtonBrush.ImageSize = FVector2D(100, 100);
+	}
+
+	if (UTexture2D* QuickSlotTex = LoadObject<UTexture2D>(nullptr, TEXT("/Game/TopDown/Image/base.base")))
+	{
+		QuickSlotBrush.SetResourceObject(QuickSlotTex);
+		QuickSlotBrush.ImageSize = FVector2D(200, 200);
+	}
+
+	if (UTexture2D* ASkillTex = LoadObject<UTexture2D>(nullptr, TEXT("/Game/TopDown/Image/A.A")))
+	{
+		ASkillBrush.SetResourceObject(ASkillTex);
+		ASkillBrush.ImageSize = FVector2D(200, 200);
+	}
+
+	if (UTexture2D* BSkillTex = LoadObject<UTexture2D>(nullptr, TEXT("/Game/TopDown/Image/B.B")))
+	{
+		BSkillBrush.SetResourceObject(BSkillTex);
+		BSkillBrush.ImageSize = FVector2D(200, 200);
+	}
+
+	if (UTexture2D* CSkillTex = LoadObject<UTexture2D>(nullptr, TEXT("/Game/TopDown/Image/C.C")))
+	{
+		CSkillBrush.SetResourceObject(CSkillTex);
+		CSkillBrush.ImageSize = FVector2D(200, 200);
 	}
 
 	ChildSlot
@@ -101,28 +115,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						]
 					]
 				]
-
-				//Option
-				+ SHorizontalBox::Slot()
-				.AutoWidth()
-				.Padding(ButtonPadding)
-				[
-					SNew(SBox)
-					.WidthOverride(120.f)
-					.HeightOverride(120.f)
-					[
-						SNew(SButton)
-						.OnClicked(this, &SMainMenuWidget::OnOptionClicked)
-						.ButtonStyle(FCoreStyle::Get(), "NoBorder")
-						.ContentPadding(0)                          
-						.HAlign(HAlign_Fill)
-						.VAlign(VAlign_Fill) 
-						[
-							SNew(SImage)
-							.Image(&SettingsButtonBrush)
-						]
-					]
-				]
 			]
 			
 			+ SOverlay::Slot()
@@ -137,20 +129,14 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				.AutoWidth()
 				.Padding(ButtonPadding)
 				[
-					SNew(SBox)
-					.WidthOverride(100.f)
-					.HeightOverride(100.f)
+					SNew(SButton)
+					.OnClicked(this, &SMainMenuWidget::OnASkillClicked)
+					.HAlign(HAlign_Fill)
+					.VAlign(VAlign_Fill)
+					.ButtonStyle(FCoreStyle::Get(), "NoBorder")
 					[
-						SNew(SButton)
-						.HAlign(HAlign_Center)
-						.VAlign(VAlign_Center) 
-						.ButtonColorAndOpacity(FColor::Magenta)
-						[
-							SNew(STextBlock)
-							.Font(ButtonTextStyle)
-							.Text(PlayText)
-							.Justification(ETextJustify::Center)
-						]
+						SNew(SImage)
+						.Image(&ASkillBrush)
 					]
 				]
 
@@ -159,42 +145,32 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 				.AutoWidth()
 				.Padding(ButtonPadding)
 				[
-					SNew(SBox)
-					.WidthOverride(100.f)
-					.HeightOverride(100.f)
+					
+					SNew(SButton)
+					.OnClicked(this, &SMainMenuWidget::OnBSkillClicked)
+					.HAlign(HAlign_Fill)
+					.VAlign(VAlign_Fill)
+					.ButtonStyle(FCoreStyle::Get(), "NoBorder")
 					[
-						SNew(SButton)
-						.HAlign(HAlign_Center)
-						.VAlign(VAlign_Center) 
-						.ButtonColorAndOpacity(FColor::Blue)
-						[
-							SNew(STextBlock)
-							.Font(ButtonTextStyle)
-							.Text(SettingsText)
-							.Justification(ETextJustify::Center)
-						]
+						SNew(SImage)
+						.Image(&BSkillBrush)
 					]
 				]
+				
 
 				// C Skill
 				+ SHorizontalBox::Slot()
 				.AutoWidth()
 				.Padding(ButtonPadding)
 				[
-					SNew(SBox)
-					.WidthOverride(100.f)
-					.HeightOverride(100.f)
+					SNew(SButton)
+					.OnClicked(this, &SMainMenuWidget::OnBSkillClicked)
+					.HAlign(HAlign_Fill)
+					.VAlign(VAlign_Fill)
+					.ButtonStyle(FCoreStyle::Get(), "NoBorder")
 					[
-						SNew(SButton)
-						.HAlign(HAlign_Center)
-						.VAlign(VAlign_Center) 
-						.ButtonColorAndOpacity(FColor::Green)
-						[
-							SNew(STextBlock)
-							.Font(ButtonTextStyle)
-							.Text(QuitText)
-							.Justification(ETextJustify::Center)
-						]
+						SNew(SImage)
+						.Image(&CSkillBrush)
 					]
 				]
 			]
@@ -231,36 +207,13 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 							{
 								return OwnerCharacter->CurrentMP / OwnerCharacter->MaxMP;
 							}
-							return 0.5f;
+							return 0.f;
 						})
 					]
 				]
 			]
 
 		];
-}
-
-FReply SMainMenuWidget::OnPlayClicked() const
-{
-	if (OwningHUD.IsValid())
-	{
-		OwningHUD->RemoveMenu();
-	}
-
-	return FReply::Handled();
-}
-
-FReply SMainMenuWidget::OnQuitClicked() const
-{
-	if (OwningHUD.IsValid())
-	{
-		if (APlayerController* PC = OwningHUD->PlayerOwner)
-		{
-			PC->ConsoleCommand("quit");
-		}
-	}
-
-	return FReply::Handled();
 }
 
 FReply SMainMenuWidget::OnInvenClicked() const
@@ -282,13 +235,44 @@ FReply SMainMenuWidget::OnSkillClicked() const
 	return FReply::Handled();
 }
 
-FReply SMainMenuWidget::OnOptionClicked() const
+FReply SMainMenuWidget::OnASkillClicked() const
 {
-	if (OwningHUD.IsValid())
+	if (OwnerCharacter.IsValid())
     {
-        OwningHUD->ShowOption();
+        float SkillAMPCost = 0.2f;
+        if (OwnerCharacter->CurrentMP >= SkillAMPCost)
+        {
+            OwnerCharacter->CurrentMP -= SkillAMPCost;
+            OwnerCharacter->CurrentMP = FMath::Clamp(OwnerCharacter->CurrentMP, 0.f, OwnerCharacter->MaxMP);
+        }
     }
-	return FReply::Handled();
+    return FReply::Handled();
 }
 
-#undef LOCTEXT_NAMESPACE
+FReply SMainMenuWidget::OnBSkillClicked() const
+{
+	if (OwnerCharacter.IsValid())
+    {
+        float SkillBMPCost = 0.4f;
+        if (OwnerCharacter->CurrentMP >= SkillBMPCost)
+        {
+            OwnerCharacter->CurrentMP -= SkillBMPCost;
+            OwnerCharacter->CurrentMP = FMath::Clamp(OwnerCharacter->CurrentMP, 0.f, OwnerCharacter->MaxMP);
+        }
+    }
+    return FReply::Handled();
+}
+
+FReply SMainMenuWidget::OnCSkillClicked() const
+{
+	if (OwnerCharacter.IsValid())
+    {
+        float SkillCMPCost = 0.6f;
+        if (OwnerCharacter->CurrentMP >= SkillCMPCost)
+        {
+            OwnerCharacter->CurrentMP -= SkillCMPCost;
+            OwnerCharacter->CurrentMP = FMath::Clamp(OwnerCharacter->CurrentMP, 0.f, OwnerCharacter->MaxMP);
+        }
+    }
+    return FReply::Handled();
+}

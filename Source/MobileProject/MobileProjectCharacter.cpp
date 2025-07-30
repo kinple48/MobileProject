@@ -54,5 +54,8 @@ void AMobileProjectCharacter::BeginPlay()
 void AMobileProjectCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    CurrentMP = FMath::Clamp(CurrentMP - 0.01f * DeltaSeconds, 0.f, MaxMP);
+    if (CurrentMP < MaxMP)
+    {
+        CurrentMP = FMath::Clamp(CurrentMP + 0.05f * DeltaSeconds, 0.f, MaxMP);
+    }
 }

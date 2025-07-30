@@ -20,12 +20,8 @@ public:
 
 	void Construct(const FArguments& InArgs);
 
-	FReply OnPlayClicked() const;
-	FReply OnQuitClicked() const;
-
 	FReply OnInvenClicked() const;
 	FReply OnSkillClicked() const;
-	FReply OnOptionClicked() const;
 
 	TWeakObjectPtr<class AMenuHUD> OwningHUD;
 	TWeakObjectPtr<class AMobileProjectCharacter> OwnerCharacter;
@@ -35,4 +31,12 @@ public:
 	FSlateBrush InvenButtonBrush;
 	FSlateBrush SettingsButtonBrush;
 	FSlateBrush SkillButtonBrush;
+	FSlateBrush QuickSlotBrush;
+	FSlateBrush ASkillBrush;
+	FSlateBrush BSkillBrush;
+	FSlateBrush CSkillBrush;
+
+	FReply OnASkillClicked() const;
+	FReply OnBSkillClicked() const;
+	FReply OnCSkillClicked() const;
 };

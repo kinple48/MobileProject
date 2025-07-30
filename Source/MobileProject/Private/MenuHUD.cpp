@@ -10,7 +10,6 @@
 #include "../MobileProjectCharacter.h"
 #include "SInventoryWidget.h"
 #include "SSkillWidget.h"
-#include "SOptionWidget.h"
 
 void AMenuHUD::BeginPlay()
 {
@@ -54,27 +53,56 @@ void AMenuHUD::RemoveMenu()
 
 void AMenuHUD::ShowInventory()
 {
+	FInputModeUIOnly InputMode;
+	PlayerOwner->SetInputMode(InputMode);
     if (!InventoryWidget.IsValid())
     {
-        InventoryWidget = SNew(SInventoryWidget);
-        GEngine->GameViewport->AddViewportWidgetContent(InventoryWidget.ToSharedRef());
+        InventoryWidget = SNew(SInventoryWidget).OwningHUD(this);
+        GEngine->GameViewport->AddViewportWidgetContent(InventoryWidget.ToSharedRef(),100);
     }
 }
 
 void AMenuHUD::ShowSkill()
 {
+	FInputModeUIOnly InputMode;
+	PlayerOwner->SetInputMode(InputMode);
 	if (!SkillWidget.IsValid())
     {
-        SkillWidget = SNew(SSkillWidget);
-        GEngine->GameViewport->AddViewportWidgetContent(SkillWidget.ToSharedRef());
+        SkillWidget = SNew(SSkillWidget).OwningHUD(this);
+        GEngine->GameViewport->AddViewportWidgetContent(SkillWidget.ToSharedRef(),100);
     }
 }
 
-void AMenuHUD::ShowOption()
+void AMenuHUD::CloseSkillWidget()
 {
-	if (!OptionWidget.IsValid())
+    if (SkillWidget.IsValid())
     {
-        OptionWidget = SNew(SOptionWidget);
-        GEngine->GameViewport->AddViewportWidgetContent(OptionWidget.ToSharedRef());
+        GEngine->GameViewport->RemoveViewportWidgetContent(SkillWidget.ToSharedRef());
+        SkillWidget.Reset();
+        APlayerController* PC = Cast<APlayerController>(PlayerOwner);
+        if (PC)
+        {
+            PC->SetInputMode(FInputModeGameOnly());
+        }
     }
+}
+
+void AMenuHUD::CloseInvenWidget()
+{
+	if (InventoryWidget.IsValid())
+    {
+        GEngine->GameViewport->RemoveViewportWidgetContent(InventoryWidget.ToSharedRef());
+        InventoryWidget.Reset();
+        APlayerController* PC = Cast<APlayerController>(PlayerOwner);
+        if (PC)
+        {
+            PC->SetInputMode(FInputModeGameOnly());
+        }
+    }
+}
+
+void AMenuHUD::SetSavedSkillData(const TMap<FString, int32>& Levels, int32 Points)
+{
+    SavedSkillLevels = Levels;
+    SavedTotalSkillPoints = Points;
 }
