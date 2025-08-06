@@ -310,7 +310,6 @@ TSharedRef<SWidget> SSkillWidget::CreateSkillEntry(const FString& SkillName)
 {
 	FSlateFontInfo SkillFont = FCoreStyle::GetDefaultFontStyle("Regular", 20);
 
-    // SkillName에 맞는 이미지 경로 찾기
     FString* ImagePathPtr = SkillImagePathMap.Find(SkillName);
     UTexture2D* SkillTex = nullptr;
     if (ImagePathPtr)

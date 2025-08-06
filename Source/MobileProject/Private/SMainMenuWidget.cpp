@@ -71,8 +71,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 			.Padding(ContentPadding)
 			[
 				SNew(SHorizontalBox)
-
-				//Inventory
 				+ SHorizontalBox::Slot()
 				.AutoWidth()
 				.Padding(ButtonPadding)
@@ -83,8 +81,8 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 					[
 						SNew(SButton)
 						.OnClicked(this, &SMainMenuWidget::OnInvenClicked)
-						.ButtonStyle(FCoreStyle::Get(), "NoBorder") // 선택: 버튼 테두리 없애기
-						.ContentPadding(0)                          // 여백 제거
+						.ButtonStyle(FCoreStyle::Get(), "NoBorder")
+						.ContentPadding(0)                          
 						.HAlign(HAlign_Fill)
 						.VAlign(VAlign_Fill)
 						[
@@ -93,8 +91,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						]
 					]
 				]
-
-				//Skill
 				+ SHorizontalBox::Slot()
 				.AutoWidth()
 				.Padding(ButtonPadding)
@@ -116,15 +112,12 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 					]
 				]
 			]
-			
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Right)
 			.VAlign(VAlign_Bottom)
 			.Padding(ContentPadding)
 			[
 				SNew(SHorizontalBox)
-
-				// A Skill
 				+ SHorizontalBox::Slot()
 				.AutoWidth()
 				.Padding(ButtonPadding)
@@ -139,8 +132,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						.Image(&ASkillBrush)
 					]
 				]
-
-				// B Skill
 				+ SHorizontalBox::Slot()
 				.AutoWidth()
 				.Padding(ButtonPadding)
@@ -156,9 +147,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 						.Image(&BSkillBrush)
 					]
 				]
-				
-
-				// C Skill
 				+ SHorizontalBox::Slot()
 				.AutoWidth()
 				.Padding(ButtonPadding)

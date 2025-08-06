@@ -7,12 +7,9 @@
 #include "CoreMinimal.h"
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Widgets/SCompoundWidget.h"
-#include "Input/Reply.h"           // FReply
+#include "Input/Reply.h" 
 #include "Input/Events.h"   
 
-/**
- * 
- */
 class MOBILEPROJECT_API SSkillWidget : public SCompoundWidget
 {
 public:

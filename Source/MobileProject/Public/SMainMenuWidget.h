@@ -2,11 +2,6 @@
 #include "SlateBasics.h"
 #include "SlateExtras.h"
 
-/**
- * 
- */
-
-
 class SMainMenuWidget : public SCompoundWidget
 {
 public:
